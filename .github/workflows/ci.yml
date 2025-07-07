@@ -47,6 +47,7 @@ jobs:
           -X POST \
           -H "Content-Type: application/json" \
           -H "Accept: application/json" \
+          -H "Content-Length: 2"
           -u "user:${{ secrets.AZURE_DEVOPS_PAT }}" \
           https://dev.azure.com/carlosramosti/CI-CD-PYTHON/_apis/pipelines/28/runs?api-version=7.0-preview.1 \
           -d "{}")
