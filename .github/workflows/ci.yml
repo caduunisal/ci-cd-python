@@ -28,12 +28,12 @@ jobs:
         echo "Sem testes por enquanto"
 
     - name: Trigger Azure DevOps Pipeline
-      env:
-        AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+      #env:
+      #  AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
       run: |
         RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
           -X POST \
-          -u "${{ secrets.AZURE_DEVOPS_PAT }}" \
+          -u ":${{ secrets.AZURE_DEVOPS_PAT }}" \
           -H "Content-Type: application/json" \
           https://dev.azure.com/carlosramosti/CI-CD-PYTHON/_apis/pipelines/28/runs?api-version=7.0-preview.1 \
           -d "{}")
