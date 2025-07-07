@@ -31,9 +31,20 @@ jobs:
       env:
         AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
       run: |
-        curl -X POST \
+        RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
+          -X POST \
           -u :$AZURE_DEVOPS_PAT \
           -H "Content-Type: application/json" \
-          -H "Authorization: Basic ${{ secrets.AZURE_DEVOPS_PAT }}" \
           https://dev.azure.com/carlosramosti/CI-CD-PYTHON/_apis/pipelines/28/runs?api-version=7.0-preview.1 \
-          -d "{}"
+          -d "{}")
+
+        echo "HTTP status: $RESPONSE"
+        cat response.json
+
+        if [ "$RESPONSE" != "200" ]; then
+          echo "❌ Falha ao acionar pipeline do Azure DevOps"
+          exit 1
+        else
+          echo "✅ Pipeline acionado com sucesso!"
+        fi
+
