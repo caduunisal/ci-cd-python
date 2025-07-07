@@ -27,6 +27,17 @@ jobs:
       run: |
         echo "Sem testes por enquanto"
 
+    - name: Debug headers
+      run: |
+        echo "Token length: ${#AZURE_DEVOPS_PAT}"
+        curl -v -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -u "user:$AZURE_DEVOPS_PAT" \
+        https://dev.azure.com/...
+      env:
+        AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+
     - name: Trigger Azure DevOps Pipeline
       #env:
       #  AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
