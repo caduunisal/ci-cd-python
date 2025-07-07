@@ -32,5 +32,5 @@ jobs:
         curl -X POST \
           -H "Content-Type: application/json" \
           -H "Authorization: Basic ${{ secrets.AZURE_DEVOPS_PAT }}" \
-          https://dev.azure.com/<ORG>/<PROJECT>/_apis/pipelines/<PIPELINE_ID>/runs?api-version=7.0-preview.1 \
+          https://dev.azure.com/carlosramosti/CI-CD-PYTHON/_apis/pipelines/28/runs?api-version=7.0-preview.1 \
           -d "{}"
