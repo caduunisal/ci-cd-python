@@ -45,6 +45,6 @@ jobs:
           echo "❌ Falha ao acionar pipeline do Azure DevOps"
           exit 1
         else
-          echo "✅ Pipeline acionado com sucesso!"
+          echo "✅ Pipeline acionado com sucesso!!"
         fi
 
