@@ -13,6 +13,6 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
-    echo "Simulação de deploy..."
+    echo "Simulando um deploy..."
     echo "Você pode colocar aqui um deploy real para Azure Web App, Kubernetes, etc."
   displayName: 'Deploy Simples'
