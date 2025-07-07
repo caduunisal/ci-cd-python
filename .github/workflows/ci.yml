@@ -3,8 +3,6 @@ name: CI Pipeline
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -23,43 +21,30 @@ jobs:
       run: |
         pip install -r requirements.txt
 
-    - name: Rodar testes (dummy)
-      run: |
-        echo "Sem testes por enquanto"
-
-    - name: Debug headers
-      run: |
-        echo "Token length: ${#AZURE_DEVOPS_PAT}"
-        curl -v -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -u "user:$AZURE_DEVOPS_PAT" \
-        -H "Content-Length: 2" \
-        https://dev.azure.com/...
+    - name: Trigger Azure DevOps Pipeline
       env:
         AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
-
-    - name: Trigger Azure DevOps Pipeline
-      #env:
-      #  AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
       run: |
+        if [ -z "$AZURE_DEVOPS_PAT" ]; then
+          echo "❌ ERRO: Variável AZURE_DEVOPS_PAT está vazia"
+          exit 1
+        fi
+
+        echo "✅ Token detectado. Chamando Azure DevOps..."
+
         RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
           -X POST \
+          -u ":$AZURE_DEVOPS_PAT" \
           -H "Content-Type: application/json" \
-          -H "Accept: application/json" \
-          -H "Content-Length: 2" \
-          -u "user:${{ secrets.AZURE_DEVOPS_PAT }}" \
           https://dev.azure.com/carlosramosti/CI-CD-PYTHON/_apis/pipelines/28/runs?api-version=7.0-preview.1 \
           -d "{}")
 
         echo "HTTP status: $RESPONSE"
-        echo "AZURE_DEVOPS_PAT: :$AZURE_DEVOPS_PAT"
         cat response.json
 
         if [ "$RESPONSE" != "200" ]; then
           echo "❌ Falha ao acionar pipeline do Azure DevOps"
           exit 1
         else
-          echo "✅ Pipeline acionado com sucesso!!"
+          echo "✅ Pipeline acionado com sucesso!"
         fi
-
