@@ -24,7 +24,7 @@ jobs:
     - name: Trigger Azure DevOps Pipeline
       env:
         #AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
-        AZURE_DEVOPS_PAT: 1txqW8UBin6OkiFiSF8b0yeXlTIQjNHtzJRx1qI27qvAZXvhvyNUJQQJ99BGACAAAAAAAAAAAAASAZDO3JmE
+        AZURE_DEVOPS_PAT: ArdmZdXiksmiaxJxoYzm4EJxze37zWsbH4QxbrLVgr3VSJAN6dAUJQQJ99BGACAAAAAAAAAAAAASAZDO1wei
       run: |
         if [ -z "$AZURE_DEVOPS_PAT" ]; then
           echo "❌ ERRO: Variável AZURE_DEVOPS_PAT está vazia!!"
