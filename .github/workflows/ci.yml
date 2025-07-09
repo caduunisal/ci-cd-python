@@ -6,7 +6,7 @@ on:
 
 permissions:
   contents: read
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,7 +26,7 @@ jobs:
 
     - name: Trigger Azure DevOps Pipeline
       env:
-        AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+        AZURE_DEVOPS_PAT: "${{ secrets.AZURE_DEVOPS_PAT }}"
       run: |
         if [ -z "$AZURE_DEVOPS_PAT" ]; then
           echo "❌ ERRO: Variável AZURE_DEVOPS_PAT está vazia!!!!"
